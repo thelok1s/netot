@@ -1,0 +1,5 @@
+public/data/* linguist-vendored
+*.html linguist-vendored
+*.rtf linguist-vendored
+*.xml linguist-vendored
+*.thmx linguist-vendored
