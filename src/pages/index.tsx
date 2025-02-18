@@ -13,6 +13,15 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -49,6 +58,40 @@ const EXAM_CONFIGS = {
   },
 };
 
+export function DisclaimerModal({
+  isDisclaimerAccepted,
+  setIsDisclaimerAccepted,
+}: DisclaimerModalProps) {
+  const handleAccept = () => {
+    localStorage.setItem("disclaimerAccepted", "true");
+    setIsDisclaimerAccepted(true);
+  };
+
+  return (
+    <AlertDialog open={!isDisclaimerAccepted} onOpenChange={() => {}}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Отказ от ответственности</AlertDialogTitle>
+          <AlertDialogDescription className="space-y-4">
+            <p>
+              Все представленные материалы предназначены исключительно для
+              образовательных целей. Содержимое сайта не имеет никакого
+              отношения к СПбГУТ, его кафедре электроники (Э) или другим
+              подразделениям, а также к виртуальной лаборатории Сальникова А. П.
+              Да и вообще, все материалы (включая графические) являются
+              выдумкой, сгенерированной с использованием ИИ. Любые совпадения с
+              реальными материалами случайны.
+            </p>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction onClick={handleAccept}>Ладно</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
 export default function Page() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -59,6 +102,13 @@ export default function Page() {
   const [content, setContent] = useState<{ [key: string]: QuestionContent }>(
     {},
   );
+  const [isDisclaimerAccepted, setIsDisclaimerAccepted] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("disclaimerAccepted") === "true";
+    }
+    return false;
+  });
+
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
@@ -109,41 +159,49 @@ export default function Page() {
 
   return (
     <>
-      <header className="header p-3 h-14 w-dvw bg-gray-50 dark:bg-gray-900 shadow-md flex items-center justify-center transition-colors">
-        <a
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="h-full"
-        >
-          <Image className="h-full" src={logo} alt="Logo" />
-        </a>
-      </header>
-      <div className="content mt-4 mainPage p-1.5 mx-auto max-w-4xl min-h-[calc(100vh-8rem)]">
-        <LabSelector onSelect={handleLabSelect} />
-        {isLoading ? (
-          <LoadingSkeleton />
-        ) : error ? (
-          <Alert variant="destructive" className="mt-4">
-            <AlertCircle className="mb-4 h-4 w-4" />
-            <AlertTitle>Ошибка</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        ) : selectedLab ? (
-          <ContentDisplay content={content} />
-        ) : null}
-      </div>
-      <footer className="footer h-fit p-3 w-dvw flex items-center justify-center text-gray-400">
-        <p>
-          Made by lok1s{"\u00A0"}
+      <DisclaimerModal
+        isDisclaimerAccepted={isDisclaimerAccepted}
+        setIsDisclaimerAccepted={setIsDisclaimerAccepted}
+      />
+      <div
+        className={isDisclaimerAccepted ? "" : "pointer-events-none opacity-50"}
+      >
+        <header className="header p-3 h-14 w-dvw bg-gray-50 dark:bg-gray-900 shadow-md flex items-center justify-center transition-colors">
           <a
-            className="h-fit w-fit inline-flex align-middle mb-1"
-            href="https://github.com/thelok1s/"
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="h-full"
           >
-            <IoLogoGithub className="inline-block transition-colors hover:fill-black dark:hover:fill-white h-5 w-5" />
+            <Image className="h-full" src={logo} alt="Logo" />
           </a>
-        </p>
-      </footer>
+        </header>
+        <div className="content mt-4 mainPage p-1.5 mx-auto max-w-4xl min-h-[calc(100vh-8rem)]">
+          <LabSelector onSelect={handleLabSelect} />
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : error ? (
+            <Alert variant="destructive" className="mt-4">
+              <AlertCircle className="mb-4 h-4 w-4" />
+              <AlertTitle>Ошибка</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          ) : selectedLab ? (
+            <ContentDisplay content={content} />
+          ) : null}
+        </div>
+        <footer className="footer h-fit p-3 w-dvw flex items-center justify-center text-gray-400">
+          <p>
+            Made by lok1s{"\u00A0"}
+            <a
+              className="h-fit w-fit inline-flex align-middle mb-1"
+              href="https://github.com/thelok1s/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IoLogoGithub className="inline-block transition-colors hover:fill-black dark:hover:fill-white h-5 w-5" />
+            </a>
+          </p>
+        </footer>
+      </div>
     </>
   );
 }

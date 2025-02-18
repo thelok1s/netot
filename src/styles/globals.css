@@ -67,10 +67,7 @@
     @apply dark:bg-gray-950;
   }
 }
-:root {
-  -webkit-user-select: none;
-  user-select: none;
-}
+
 footer {
   cursor: default;
 }
