@@ -58,6 +58,11 @@ const EXAM_CONFIGS = {
   },
 };
 
+interface DisclaimerModalProps {
+  isDisclaimerAccepted: boolean;
+  setIsDisclaimerAccepted: (value: boolean) => void;
+}
+
 export function DisclaimerModal({
   isDisclaimerAccepted,
   setIsDisclaimerAccepted,
