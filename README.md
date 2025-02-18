@@ -2,7 +2,6 @@
 
 ![Vercel](https://vercelbadge.vercel.app/api/thelok1s/netot)
 ![Обновлен](https://badges.pufler.dev/updated/thelok1s/netot)
-![Лицензия](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)
 
 
 ### neTOT является веб приложением для помощи в самостоятельном обучении теории электросвязи и информации.
