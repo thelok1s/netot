@@ -7,7 +7,6 @@ export default function LoadingSkeleton() {
         <div key={i} className="border rounded-lg p-6 shadow-sm">
           <div className="mb-6">
             <Skeleton className="h-6 w-32 mb-4" />
-            {/* Problem skeleton */}
             <div className="mb-4 p-4 rounded-lg">
               <Skeleton className="h-5 w-24 mb-2" />
               <div className="space-y-2">

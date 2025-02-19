@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 
@@ -12,27 +12,28 @@ function processHtmlContent(
     (match, prefix, imgPath, suffix) => {
       if (imgPath.startsWith("http") || imgPath.startsWith("/")) return match;
       const cleanImgPath = imgPath.replace(`${fileBaseName}_files/`, "");
-
       const absolutePath = `/data/Q${labNumber}/${fileBaseName}_files/${cleanImgPath}`;
-      console.log("Processing image path:", absolutePath); // Debug log
       return `${prefix}${absolutePath}${suffix}`;
     },
   );
 
-  content = content
+  return content
     .replace(/<!--\[if gte mso.*?\[endif]-->/g, "")
     .replace(/&nbsp;/g, " ")
     .replace(/[\u2018\u2019]/g, "'")
     .replace(/[\u201C\u201D]/g, '"');
-
-  return content;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const { lab } = req.query;
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const lab = searchParams.get("lab");
+
+  if (!lab) {
+    return NextResponse.json(
+      { error: "Lab parameter is required" },
+      { status: 400 },
+    );
+  }
 
   try {
     const labPath = path.join(process.cwd(), "public", "data", `Q${lab}`);
@@ -52,9 +53,8 @@ export default async function handler(
         let content = await fs.readFile(filePath, "utf8");
         const fileBaseName = path.basename(file, path.extname(file));
 
-        // Process HTML content
         if (file.endsWith(".html")) {
-          content = processHtmlContent(content, lab as string, fileBaseName);
+          content = processHtmlContent(content, lab, fileBaseName);
         }
 
         if (file.startsWith("Q")) {
@@ -66,7 +66,6 @@ export default async function handler(
             contentMap[questionNum].question = content;
           }
         } else if (file.startsWith("P")) {
-          // Handle Problem files
           const problemNum = file.match(/P\d+(\d{2})/)?.[1];
           if (problemNum) {
             if (!contentMap[problemNum]) {
@@ -92,9 +91,12 @@ export default async function handler(
       }
     }
 
-    res.status(200).json(contentMap);
+    return NextResponse.json(contentMap);
   } catch (error) {
     console.error("Error reading lab content:", error);
-    res.status(500).json({ error: "Failed to load content" });
+    return NextResponse.json(
+      { error: "Failed to load content" },
+      { status: 500 },
+    );
   }
 }
