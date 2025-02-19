@@ -9,7 +9,7 @@ import type { Viewport } from "next";
 export const metadata = {
   title: "neTOT",
   description: "Безопасники решают теорию (электро)связи по своему",
-  keywords: ["zss", "зсс", "теория связи", "тэс", "отс"]
+  keywords: ["zss", "зсс", "теория связи", "тэс", "отс"],
 };
 
 export const viewport: Viewport = {

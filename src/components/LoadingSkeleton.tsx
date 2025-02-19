@@ -4,7 +4,7 @@ export default function LoadingSkeleton() {
   return (
     <div className="mt-4 space-y-8">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="border rounded-lg p-6 shadow-sm">
+        <div key={i} className="border rounded-lg p-6 shadow-xs">
           <div className="mb-6">
             <Skeleton className="h-6 w-32 mb-4" />
             <div className="mb-4 p-4 rounded-lg">

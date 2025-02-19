@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LAB_ITEMS } from "@/util/config";
+const LAB_ITEMS = Array.from({ length: 20 }, (_, i) => i + 1);
 
 export default function LabSelector({
   onSelect,
@@ -23,9 +23,6 @@ export default function LabSelector({
             {`Лаба ${value}`}
           </SelectItem>
         ))}
-        <SelectItem value="exam1">ОТС-1</SelectItem>
-        <SelectItem value="exam2">Все лабы</SelectItem>
-        <SelectItem value="exam3">Абсолютно всё</SelectItem>
       </SelectContent>
     </Select>
   );

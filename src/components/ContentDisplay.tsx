@@ -43,7 +43,7 @@ export default function ContentDisplay({ content }: ContentDisplayProps) {
         .map(([questionId, questionContent]) => (
           <Collapsible
             key={questionId}
-            className="border rounded-lg p-6 shadow-sm"
+            className="border rounded-lg p-6 shadow-xs"
             open={openStates[questionId]}
             onOpenChange={(open) =>
               setOpenStates((prev) => ({ ...prev, [questionId]: open }))

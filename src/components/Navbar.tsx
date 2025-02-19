@@ -27,8 +27,13 @@ export default function Navbar() {
     <header className="header p-3 h-14 w-dvw bg-gray-50 dark:bg-gray-900 shadow-md flex items-center justify-between transition-colors">
       <div className="w-[100px]"></div>
 
-      <div className="h-full">
-        <Image className="h-full w-auto" src={logo} alt="Logo" priority />
+      <div className="h-auto">
+        <Image
+          className="max-h-9 w-auto object-contain"
+          src={logo}
+          alt="Logo"
+          priority
+        />
       </div>
 
       <div className="flex items-center gap-2 w-[100px] justify-end">
