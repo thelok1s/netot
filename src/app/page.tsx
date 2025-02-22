@@ -48,7 +48,9 @@ export default function Page() {
             </Alert>
           ) : selectedLab ? (
             <ContentDisplay content={content} />
-          ) : <Infoboard />}
+          ) : (
+            <Infoboard />
+          )}
         </div>
       </div>
     </>

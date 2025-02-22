@@ -3,14 +3,22 @@ import * as Icons from "lucide-react";
 import notifications from "@/data/infoboard.json";
 import cat from "@/images/cat.svg";
 import Image from "next/image";
+import { LucideIcon } from "lucide-react";
+
+interface Notification {
+  id: string;
+  title: string;
+  text: string;
+  icon: keyof typeof Icons;
+}
 
 export default function Infoboard() {
   return (
     <div className="flex flex-col border rounded-lg h-fit gap-4 p-4 mt-4 shadow-xs items-center">
       <h1 className="text-2xl">Новости проекта</h1>
       <div className="space-y-4">
-        {notifications.notifications.map((notification) => {
-          const IconComponent = Icons[notification.icon as keyof typeof Icons];
+        {(notifications.notifications as Notification[]).map((notification) => {
+          const IconComponent = Icons[notification.icon] as LucideIcon;
 
           return (
             <Alert key={notification.id}>
