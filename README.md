@@ -1,7 +1,7 @@
 # neTOT
 
 ![Vercel](https://vercelbadge.vercel.app/api/thelok1s/netot)
-![Обновлен](https://badges.pufler.dev/updated/thelok1s/netot)
+![GitHub last commit](https://img.shields.io/github/last-commit/thelok1s/netot)
 ![Нужны мейнтейнеры](https://img.shields.io/badge/maintainers-wanted-red.svg)
 
 
