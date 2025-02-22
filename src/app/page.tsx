@@ -8,6 +8,7 @@ import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { useLabContent } from "@/hooks/useLabContent";
+import Infoboard from "@/components/Infoboard";
 
 export default function Page() {
   const [mounted, setMounted] = useState(false);
@@ -47,7 +48,7 @@ export default function Page() {
             </Alert>
           ) : selectedLab ? (
             <ContentDisplay content={content} />
-          ) : null}
+          ) : <Infoboard />}
         </div>
       </div>
     </>

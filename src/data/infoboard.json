@@ -1,0 +1,18 @@
+{
+  "notifications": [
+    {
+      "id": "info",
+      "title": "Флагов тут нет",
+      "text": "Но зато в бонче есть клуб настольных и ролевых игр – vk.com/pepelprospero или t.me/pepelprospero",
+      "variant": "default",
+      "icon": "Dices"
+    },
+    {
+      "id": "alert",
+      "title": "Проект не завершен",
+      "text": "Это проект с открытым исходным кодом. Поддержите проект или разработку, чтобы дополнить его",
+      "variant": "secondary",
+      "icon": "CircleAlert"
+    }
+  ]
+}
