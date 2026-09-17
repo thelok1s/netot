@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  outputFileTracingIncludes: {
+    "/api/lab-content": ["./public/data/**/*"],
+  },
 };
 
 export default nextConfig;
