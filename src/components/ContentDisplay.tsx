@@ -18,6 +18,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Skeleton } from "@/components/ui/skeleton";
+import FeedbackDialog from "@/components/FeedbackDialog";
 
 interface QuestionContent {
   question: string;
@@ -166,20 +167,23 @@ function QuestionCard({
         >
           <div className="question-card-heading">
             <h3 className="study-card-title">Вопрос {String(+questionId)}</h3>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="question-readability-toggle"
-              onClick={() =>
-                setReadabilityMode((mode) => getNextReadabilityMode(mode))
-              }
-              aria-label={`Контраст содержимого: ${readabilityModeLabels[readabilityMode]}. Переключить на ${readabilityModeLabels[nextReadabilityMode]}.`}
-              title={`Контраст: ${readabilityModeLabels[readabilityMode]}. Переключить на ${readabilityModeLabels[nextReadabilityMode]}`}
-            >
-              <Contrast aria-hidden="true" />
-              Контраст: {readabilityModeLabels[readabilityMode]}
-            </Button>
+            <div className="question-card-actions">
+              <FeedbackDialog lab={lab} questionId={questionId} />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="question-readability-toggle"
+                onClick={() =>
+                  setReadabilityMode((mode) => getNextReadabilityMode(mode))
+                }
+                aria-label={`Контраст содержимого: ${readabilityModeLabels[readabilityMode]}. Переключить на ${readabilityModeLabels[nextReadabilityMode]}.`}
+                title={`Контраст: ${readabilityModeLabels[readabilityMode]}. Переключить на ${readabilityModeLabels[nextReadabilityMode]}`}
+              >
+                <Contrast aria-hidden="true" />
+                Контраст: {readabilityModeLabels[readabilityMode]}
+              </Button>
+            </div>
           </div>
 
           <div
@@ -223,6 +227,13 @@ function QuestionCard({
                         className="answer-content document-content prose max-w-none"
                         dangerouslySetInnerHTML={{ __html: answer.content }}
                       />
+                      <div className="answer-feedback">
+                        <FeedbackDialog
+                          lab={lab}
+                          questionId={questionId}
+                          answerId={answer.id}
+                        />
+                      </div>
                     </div>
                   ))}
               </CollapsibleContent>
