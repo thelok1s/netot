@@ -9,6 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { useLabContent } from "@/hooks/useLabContent";
 import Infoboard from "@/components/Infoboard";
+import ScrollControls from "@/components/ScrollControls";
 
 const subscribe = () => () => {};
 const getClientSnapshot = () => true;
@@ -21,7 +22,8 @@ export default function Page() {
     getServerSnapshot,
   );
   const [selectedLab, setSelectedLab] = useState<string>("");
-  const { content, isLoading, error } = useLabContent(selectedLab);
+  const { questionIds, hasLoadedIndex, isLoading, error } =
+    useLabContent(selectedLab);
   const [isDisclaimerAccepted, setIsDisclaimerAccepted] = useState(
     () =>
       typeof window !== "undefined" &&
@@ -39,24 +41,42 @@ export default function Page() {
         setIsDisclaimerAccepted={setIsDisclaimerAccepted}
       />
       <div
-        className={isDisclaimerAccepted ? "" : "pointer-events-none opacity-50"}
+        className={
+          isDisclaimerAccepted
+            ? "app-shell"
+            : "app-shell pointer-events-none opacity-50"
+        }
       >
-        <div className="content mt-4 mainPage p-1.5 mx-auto max-w-4xl min-h-[calc(100vh-8rem)]">
-          <LabSelector onSelect={setSelectedLab} />
-          {isLoading ? (
-            <LoadingSkeleton />
-          ) : error ? (
-            <Alert variant="destructive" className="mt-4">
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Ошибка</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          ) : selectedLab ? (
-            <ContentDisplay content={content} />
-          ) : (
-            <Infoboard />
-          )}
+        <div className="content app-main mainPage mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+          <LabSelector
+            value={selectedLab}
+            onSelect={setSelectedLab}
+            onReset={() => setSelectedLab("")}
+          />
+
+          <div className="content-transition" aria-live="polite">
+            {isLoading ? (
+              <LoadingSkeleton />
+            ) : error ? (
+              <Alert variant="destructive" className="content-error-state mt-4">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Ошибка</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            ) : selectedLab && hasLoadedIndex ? (
+              <ContentDisplay
+                key={selectedLab}
+                lab={selectedLab}
+                questionIds={questionIds}
+              />
+            ) : selectedLab ? (
+              <LoadingSkeleton />
+            ) : (
+              <Infoboard />
+            )}
+          </div>
         </div>
+        {selectedLab && <ScrollControls />}
       </div>
     </>
   );

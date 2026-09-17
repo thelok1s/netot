@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
+import { Check, Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -13,26 +13,52 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label="Выбрать тему оформления"
+          className="theme-trigger"
+        >
+          <Sun className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.1rem] w-[1.1rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Выбрать тему оформления</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+      <DropdownMenuContent align="end" className="theme-menu">
+        <DropdownMenuItem
+          className="theme-menu-item"
+          onClick={() => setTheme("light")}
+        >
+          <Sun aria-hidden="true" />
           Светлая
+          {theme === "light" && (
+            <Check className="theme-check" aria-hidden="true" />
+          )}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          className="theme-menu-item"
+          onClick={() => setTheme("dark")}
+        >
+          <Moon aria-hidden="true" />
           Темная
+          {theme === "dark" && (
+            <Check className="theme-check" aria-hidden="true" />
+          )}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          Система
+        <DropdownMenuItem
+          className="theme-menu-item"
+          onClick={() => setTheme("system")}
+        >
+          <Monitor aria-hidden="true" />
+          Как в системе
+          {theme === "system" && (
+            <Check className="theme-check" aria-hidden="true" />
+          )}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

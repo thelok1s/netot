@@ -1,27 +1,33 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import * as Icons from "lucide-react";
+import { CircleAlert, Dices, type LucideIcon } from "lucide-react";
 import notifications from "@/data/infoboard.json";
 import cat from "@/images/cat.svg";
 import Image from "next/image";
-import { LucideIcon } from "lucide-react";
+
+const notificationIcons: Record<string, LucideIcon> = {
+  Dices,
+  CircleAlert,
+};
 
 interface Notification {
   id: string;
   title: string;
   text: string;
-  icon: keyof typeof Icons;
+  icon: string;
 }
 
 export default function Infoboard() {
   return (
-    <div className="flex flex-col border rounded-lg h-fit gap-4 p-4 mt-4 shadow-xs items-center">
-      <h1 className="text-2xl">Новости проекта</h1>
-      <div className="space-y-4">
+    <section className="info-panel" aria-labelledby="news-title">
+      <h1 id="news-title" className="info-panel-title">
+        Новости проекта
+      </h1>
+      <div className="space-y-3">
         {(notifications.notifications as Notification[]).map((notification) => {
-          const IconComponent = Icons[notification.icon] as LucideIcon;
+          const IconComponent = notificationIcons[notification.icon];
 
           return (
-            <Alert key={notification.id}>
+            <Alert key={notification.id} className="notice-card">
               {IconComponent && <IconComponent className="h-4 w-4" />}
               <AlertTitle>{notification.title}</AlertTitle>
               <AlertDescription>{notification.text}</AlertDescription>
@@ -29,10 +35,10 @@ export default function Infoboard() {
           );
         })}
       </div>
-      <Image className="opacity-30" src={cat} alt="zssoib{fake_flag_<3}" />
-      <p className="text-muted-foreground">
+      <Image className="info-panel-image" src={cat} alt="" />
+      <p className="info-panel-hint">
         Выберите лабораторную работу из списка выше, чтобы начать
       </p>
-    </div>
+    </section>
   );
 }

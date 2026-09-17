@@ -27,8 +27,8 @@ export default function DisclaimerModal({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Отказ от ответственности</AlertDialogTitle>
-          <AlertDialogDescription className="space-y-4">
-            <p>
+          <AlertDialogDescription>
+            <span>
               Все представленные материалы предназначены исключительно для
               образовательных целей. Содержимое сайта не имеет никакого
               отношения к СПбГУТ, его кафедре электроники (Э) или другим
@@ -36,7 +36,7 @@ export default function DisclaimerModal({
               Да и вообще, все материалы (включая графические) являются
               выдумкой, сгенерированной с использованием ИИ. Любые совпадения с
               реальными материалами случайны.
-            </p>
+            </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

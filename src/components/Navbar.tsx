@@ -28,30 +28,27 @@ export default function Navbar() {
   const logo = resolvedTheme === "dark" ? logoLight : logoDark;
 
   return (
-    <header className="header p-3 h-14 w-dvw bg-gray-50 dark:bg-gray-900 shadow-md flex items-center justify-between transition-colors">
-      <div className="w-[100px]"></div>
+    <header className="header site-header">
+      <div className="site-nav mx-auto">
+        <div className="w-[5.5rem] sm:w-28" />
 
-      <div className="h-auto">
-        <Image
-          className="max-h-9 w-auto object-contain"
-          src={logo}
-          alt="Logo"
-          priority
-        />
-      </div>
+        <div>
+          <Image className="site-logo" src={logo} alt="neTOT" priority />
+        </div>
 
-      <div className="flex items-center gap-2 w-[100px] justify-end">
-        <Button variant="outline" size="icon" asChild>
-          <a
-            href="https://github.com/thelok1s/netot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-9 w-9 flex items-center justify-center"
-          >
-            <IoLogoGithub />
-          </a>
-        </Button>
-        <ThemeToggle />
+        <div className="flex w-[5.5rem] justify-end gap-2 sm:w-28">
+          <Button variant="outline" size="icon" asChild>
+            <a
+              href="https://github.com/thelok1s/netot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 w-9 flex items-center justify-center"
+            >
+              <IoLogoGithub aria-hidden="true" />
+            </a>
+          </Button>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

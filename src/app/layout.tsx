@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 import "@/styles/globals.css";
 import React from "react";
 import type { Metadata, Viewport } from "next";
@@ -30,7 +31,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          enableColorScheme
         >
           <div style={{ userSelect: "none" }}>
             <Navbar />

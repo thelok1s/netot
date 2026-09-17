@@ -2,16 +2,17 @@ import { IoLogoGithub } from "react-icons/io5";
 
 export default function Footer() {
   return (
-    <footer className="footer h-fit p-3 w-dvw flex items-center justify-center text-gray-400">
+    <footer className="footer site-footer">
       <p>
-        Made by lok1s{"\u00A0"}
+        Сделано lok1s{" "}
         <a
-          className="h-fit w-fit inline-flex align-middle mb-1"
+          className="footer-github"
           href="https://github.com/thelok1s/"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Профиль lok1s на GitHub"
         >
-          <IoLogoGithub className="inline-block transition-colors hover:fill-black dark:fill-white h-5 w-5" />
+          <IoLogoGithub aria-hidden="true" />
         </a>
       </p>
     </footer>

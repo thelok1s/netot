@@ -2,9 +2,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function LoadingSkeleton() {
   return (
-    <div className="mt-4 space-y-8">
+    <div
+      className="content-results mt-5 space-y-5"
+      aria-label="Загрузка материалов"
+    >
       {[1, 2, 3].map((i) => (
-        <div key={i} className="border rounded-lg p-6 shadow-xs">
+        <div key={i} className="study-card" aria-hidden="true">
           <div className="mb-6">
             <Skeleton className="h-6 w-32 mb-4" />
             <div className="mb-4 p-4 rounded-lg">
