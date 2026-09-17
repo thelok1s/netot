@@ -41,8 +41,3 @@ next-env.d.ts
 ### user
 /public/data/_wrong_answers/
 /.ropeproject/
-
-### lint
-.prettierignore
-.prettierrc
-eslint.config.mjs

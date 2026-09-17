@@ -2,20 +2,24 @@
 
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import logoLight from "../images/logo-light.svg";
 import logoDark from "../images/logo-dark.svg";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "./ui/button";
 import { IoLogoGithub } from "react-icons/io5";
 
-export default function Navbar() {
-  const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function Navbar() {
+  const { resolvedTheme } = useTheme();
+  const mounted = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
 
   if (!mounted) {
     return null;

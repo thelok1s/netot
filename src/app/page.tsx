@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import ContentDisplay from "@/components/ContentDisplay";
 import LabSelector from "@/components/LabSelector";
 import DisclaimerModal from "@/components/Disclaimer";
@@ -10,18 +10,23 @@ import { AlertCircle } from "lucide-react";
 import { useLabContent } from "@/hooks/useLabContent";
 import Infoboard from "@/components/Infoboard";
 
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 export default function Page() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
   const [selectedLab, setSelectedLab] = useState<string>("");
   const { content, isLoading, error } = useLabContent(selectedLab);
-  const [isDisclaimerAccepted, setIsDisclaimerAccepted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    setIsDisclaimerAccepted(
+  const [isDisclaimerAccepted, setIsDisclaimerAccepted] = useState(
+    () =>
+      typeof window !== "undefined" &&
       localStorage.getItem("disclaimerAccepted") === "true",
-    );
-  }, []);
+  );
 
   if (!mounted) {
     return null;

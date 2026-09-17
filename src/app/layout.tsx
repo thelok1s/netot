@@ -4,9 +4,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "@/styles/globals.css";
 import React from "react";
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "neTOT",
   description: "Безопасники решают теорию (электро)связи по своему",
   keywords: ["zss", "зсс", "теория связи", "тэс", "отс"],

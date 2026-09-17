@@ -1,0 +1,4 @@
+# Ignore artifacts and imported lab content:
+build
+coverage
+public/data
